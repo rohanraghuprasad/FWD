@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - HMS</title>
+  <style>
+    /* Reset and Base Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f8fdf8;
+      color: #1f3b2d;
+    }
+
+    /* Navbar */
+    header {
+      border-top: 4px solid #4b2e1a;
+    }
+
+    .navbar {
+      background-color: #dff5e3; /* light green like Book an Appointment */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+    }
+
+    .navbar h1 {
+      color: #1c3b2a;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1c3b2a;
+      font-weight: 600;
+      font-size: 17px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #3c7054;
+    }
+
+    /* Content Section */
+    .content {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .content h2 {
+      color: #1c3b2a;
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+
+    .content p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #2a4d38;
+      margin-bottom: 40px;
+    }
+
+    .content h3 {
+      color: #1c3b2a;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .content ul {
+      list-style: none;
+      text-align: left;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .content li {
+      font-size: 17px;
+      padding: 8px 0;
+      color: #1f3b2d;
+    }
+
+    .content li::before {
+      content: "• ";
+      color: #3c7054;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h1>About Us</h1>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="content">
+    <h2>About HealthCare+</h2>
+    <p>HealthCare+ is a hospital management web application that simplifies 
+       patient registration and booking of appointments. Built using HTML, CSS, and JavaScript.</p>
+
+    <h3>Our Team</h3>
+    <ul>
+      <li> Member 1 – Rohan Raghu Prasad</li>
+      <li> Member 2 – Shamanth Varma</li>
+      <li> Member 3 – Siddu Lokeshwar Reddy</li>
+      <li> Member 4 – Chetan Reddy G V</li>
+    </ul>
+  </section>
+</body>
+</html>

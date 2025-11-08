@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register | HealthCare+</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f9fffb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #e8f5e9;
+      border-top: 4px solid #4e342e;
+      color: #2f4f4f;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 20px 60px 20px 50px; 
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    
+    .nav-links a {
+      color: #2f4f4f;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      margin-right: 40px; 
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #1b5e20;
+    }
+
+    
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    
+    .card h3 {
+      text-align: center;
+      color: #2f4f4f;
+      margin-bottom: 20px;
+    }
+
+    
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .field {
+      flex: 1;
+    }
+
+    .input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #1e7e34;
+    }
+
+   
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+      }
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+      }
+      .nav-links a {
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div>Register</div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  
+  <main class="container">
+    <div class="card">
+      <h3>Patient Registration</h3>
+      <form id="regForm">
+        <div class="form-row">
+          <div class="field">
+            <input class="input" id="name" placeholder="Full Name" required />
+          </div>
+          <div class="field">
+            <input class="input" id="email" type="email" placeholder="Email" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <input class="input" id="phone" placeholder="Phone" required />
+          </div>
+          <div class="field">
+            <input class="input" id="password" type="password" placeholder="Password" required />
+          </div>
+        </div>
+
+        <button class="btn" type="submit">Create Account</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Registration successful! Welcome to HealthCare+");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
