@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HealthCare+ Hospital</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register | HealthCare+</title>
+
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
     }
 
     body {
-      background-color: #f7fcf8;
-      color: #1f3c2c;
+      background: linear-gradient(135deg, #e8f5f2 0%, #f9fdfb 100%);
+      color: #2f4f4f;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      background: #e6f4ea;
-      color: #1f3c2c;
-      padding: 1rem 3rem;
+      background-color: #ffffffcc;
+      backdrop-filter: blur(6px);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      padding: 15px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      font-size: 1.6rem;
+    header h1 {
+      font-size: 1.7rem;
       font-weight: 700;
-      color: #1f3c2c;
-    }
-
-    .logo img {
-      width: 35px;
-      height: 35px;
-      margin-right: 10px;
+      color: #00796b;
+      letter-spacing: 0.5px;
     }
 
     nav a {
-      color: #1f3c2c;
+      color: #2f4f4f;
       text-decoration: none;
       margin-left: 25px;
       font-weight: 500;
@@ -50,218 +51,180 @@
     }
 
     nav a:hover {
-      color: #07883b;
+      color: #00796b;
     }
 
-    .hero {
-      background: #8bfca5;
+    .container {
+      max-width: 650px;
+      margin: 80px auto;
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
       text-align: center;
-      padding: 120px 20px;
-    }
-
-    .hero-content {
-      background-color: #f7fbfb;
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 50px 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .hero h1 {
+      color: #00796b;
       font-size: 1.9rem;
-      margin-bottom: 10px;
-      color: #1f3c2c;
+      margin-bottom: 25px;
+      font-weight: 600;
     }
 
-    .hero p {
-      color: #3a5540;
-      font-size: 1rem;
-      margin-bottom: 25px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .form-row .field {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background-color: #fdfdfd;
+    }
+
+    input:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 6px rgba(40, 167, 69, 0.25);
+      background-color: #f9fffa;
+      outline: none;
     }
 
     .btn {
       background-color: #28a745;
-      color: white;
+      color: #fff;
       border: none;
-      padding: 10px 25px;
-      border-radius: 6px;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: background-color 0.3s ease, transform 0.25s ease;
     }
 
     .btn:hover {
-      background-color: #218838;
-      transform: scale(1.03);
+      background-color: #1e7e34;
+      transform: translateY(-2px);
     }
 
-    /* === Modal Styling === */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 0.3s;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .modal-content {
-      background-color: hwb(180 94% 4%);
-      padding: 30px 40px;
-      border-radius: 10px;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .modal-content h2 {
-      margin-bottom: 15px;
-      color: #1f3c2c;
-    }
-
-    .modal-content p {
-      color: #3a5540;
-      margin-bottom: 25px;
-      font-size: 0.95rem;
-    }
-
-    .modal-content a {
-      display: inline-block;
-      margin: 8px;
-      padding: 10px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-
-    .modal-content a.login {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .modal-content a.login:hover {
-      background-color: #0056b3;
-    }
-
-    .modal-content a.register {
-      background-color: #28a745;
-      color: white;
-    }
-
-    .modal-content a.register:hover {
-      background-color: #218838;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 20px;
-      color: #555;
-      cursor: pointer;
+    .btn:active {
+      transform: scale(0.98);
     }
 
     footer {
-      background-color: #e6f4ea;
-      color: #1f3c2c;
+      background-color: #e8f5f2;
+      color: #2f4f4f;
       text-align: center;
-      padding: 15px 0;
+      padding: 18px 0;
       font-size: 0.9rem;
-      margin-top: 60px;
+      margin-top: auto;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+      }
+
       header {
         flex-direction: column;
         text-align: center;
       }
+
       nav {
-        margin-top: 10px;
-      }
-      .hero-content {
-        padding: 40px 20px;
+        margin-top: 8px;
       }
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
-    <div class="logo">
-      <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="Hospital Logo">
-      HealthCare+
-    </div>
+    <h1>Register</h1>
     <nav>
-      <a href="login.html">Login</a> 
-       <a href="registration.html">Register</a> 
-       <a href="appointment.html">Book an Appointment</a>  
-       <a href="doctors.html">Doctors</a> 
-       <a href="contact.html">Contact</a> 
-       <a href="about.html">About</a> 
+      <a href="index.html">Home</a>
     </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome to HealthCare+</h1>
-      <p>Book your appointments easily and manage your health records online. Your health, our priority.</p>
-      <button class="btn" id="getStartedBtn">Get Started</button>
-    </div>
-  </section>
+  <main>
+    <section class="container">
+      <h2>Patient Registration</h2>
+      <form id="regForm">
+        <div class="form-row">
+          <div class="field">
+            <input type="text" id="name" placeholder="First Name" required />
+          </div>
+          <div class="field">
+            <input type="text" id="lastname" placeholder="Surname" required />
+          </div>
+        </div>
 
-  <!-- Modal -->
-  <div id="choiceModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeModal">&times;</span>
-      <h2>Welcome!</h2>
-      <p>Do you already have an account?</p>
-      <a href="login.html" class="login">Login</a>
-      <a href="registration.html" class="register">Register</a>
-    </div>
-  </div>
+        <div class="form-row">
+          <div class="field">
+            <input type="email" id="email" placeholder="Email" required />
+          </div>
+          <div class="field">
+            <input type="tel" id="phone" placeholder="Phone Number" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <input type="password" id="password" placeholder="Password" required />
+          </div>
+          <div class="field">
+            <input type="password" id="confirm" placeholder="Confirm Password" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Create Account</button>
+      </form>
+    </section>
+  </main>
 
   <footer>
-    © 2025 HealthCare+ | All Rights Reserved
+    &copy; 2025 HealthCare+. All rights reserved.
   </footer>
 
   <script>
-    const modal = document.getElementById("choiceModal");
-    const openBtn = document.getElementById("getStartedBtn");
-    const closeBtn = document.getElementById("closeModal");
-
-    openBtn.onclick = function() {
-      modal.style.display = "flex";
-    };
-
-    closeBtn.onclick = function() {
-      modal.style.display = "none";
-    };
-
-    window.onclick = function(e) {
-      if (e.target === modal) {
-        modal.style.display = "none";
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const pass = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+      if (pass !== confirm) {
+        alert("Passwords do not match!");
+        return;
       }
-    };
+      alert("Registration successful! Welcome to HealthCare+");
+      e.target.reset();
+    });
   </script>
 </body>
 </html>
