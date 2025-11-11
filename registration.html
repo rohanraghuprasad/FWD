@@ -6,109 +6,160 @@
   <title>Register | HealthCare+</title>
 
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #f9fffb;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e8f5f2 0%, #f9fdfb 100%);
+      color: #2f4f4f;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      background-color: #e8f5e9;
-      border-top: 4px solid #4e342e;
-      color: #2f4f4f;
-      font-size: 24px;
-      font-weight: bold;
-      padding: 20px 60px 20px 50px; 
+      background-color: #ffffffcc;
+      backdrop-filter: blur(6px);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-    
-    .nav-links a {
+    header h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #00796b;
+      letter-spacing: 0.5px;
+    }
+
+    nav a {
       color: #2f4f4f;
       text-decoration: none;
-      font-size: 18px;
-      font-weight: 600;
-      margin-right: 40px; 
+      margin-left: 25px;
+      font-weight: 500;
       transition: color 0.3s ease;
     }
 
-    .nav-links a:hover {
-      color: #1b5e20;
+    nav a:hover {
+      color: #00796b;
     }
 
-    
     .container {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 0 20px;
+      max-width: 650px;
+      margin: 80px auto;
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.8s ease;
     }
 
-    .card {
-      background: #fff;
-      padding: 25px 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    
-    .card h3 {
+    h2 {
       text-align: center;
-      color: #2f4f4f;
-      margin-bottom: 20px;
+      color: #00796b;
+      font-size: 1.9rem;
+      margin-bottom: 25px;
+      font-weight: 600;
     }
 
-    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
     .form-row {
       display: flex;
       gap: 15px;
-      margin-bottom: 15px;
+      flex-wrap: wrap;
     }
 
-    .field {
+    .form-row .field {
       flex: 1;
+      min-width: 250px;
     }
 
-    .input {
+    input {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      padding: 12px 14px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
       font-size: 15px;
-      box-sizing: border-box;
+      transition: all 0.3s ease;
+      background-color: #fdfdfd;
+    }
+
+    input:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 6px rgba(40, 167, 69, 0.25);
+      background-color: #f9fffa;
+      outline: none;
     }
 
     .btn {
-      width: 100%;
-      padding: 12px;
       background-color: #28a745;
-      color: white;
+      color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
+      padding: 14px;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease, transform 0.25s ease;
     }
 
     .btn:hover {
       background-color: #1e7e34;
+      transform: translateY(-2px);
     }
 
-   
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    footer {
+      background-color: #e8f5f2;
+      color: #2f4f4f;
+      text-align: center;
+      padding: 18px 0;
+      font-size: 0.9rem;
+      margin-top: auto;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    }
+
     @media (max-width: 600px) {
       .form-row {
         flex-direction: column;
       }
+
       header {
         flex-direction: column;
         text-align: center;
-        gap: 8px;
       }
-      .nav-links a {
-        margin-right: 0;
+
+      nav {
+        margin-top: 8px;
       }
     }
   </style>
@@ -116,43 +167,61 @@
 
 <body>
   <header>
-    <div>Register</div>
-    <nav class="nav-links">
+    <h1>Register</h1>
+    <nav>
       <a href="index.html">Home</a>
     </nav>
   </header>
 
-  
-  <main class="container">
-    <div class="card">
-      <h3>Patient Registration</h3>
+  <main>
+    <section class="container">
+      <h2>Patient Registration</h2>
       <form id="regForm">
         <div class="form-row">
           <div class="field">
-            <input class="input" id="name" placeholder="Full Name" required />
+            <input type="text" id="name" placeholder="First Name" required />
           </div>
           <div class="field">
-            <input class="input" id="email" type="email" placeholder="Email" required />
+            <input type="text" id="lastname" placeholder="Surname" required />
           </div>
         </div>
 
         <div class="form-row">
           <div class="field">
-            <input class="input" id="phone" placeholder="Phone" required />
+            <input type="email" id="email" placeholder="Email" required />
           </div>
           <div class="field">
-            <input class="input" id="password" type="password" placeholder="Password" required />
+            <input type="tel" id="phone" placeholder="Phone Number" required />
           </div>
         </div>
 
-        <button class="btn" type="submit">Create Account</button>
+        <div class="form-row">
+          <div class="field">
+            <input type="password" id="password" placeholder="Password" required />
+          </div>
+          <div class="field">
+            <input type="password" id="confirm" placeholder="Confirm Password" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Create Account</button>
       </form>
-    </div>
+    </section>
   </main>
+
+  <footer>
+    &copy; 2025 HealthCare+. All rights reserved.
+  </footer>
 
   <script>
     document.getElementById("regForm").addEventListener("submit", function(e) {
       e.preventDefault();
+      const pass = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+      if (pass !== confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
       alert("Registration successful! Welcome to HealthCare+");
       e.target.reset();
     });
