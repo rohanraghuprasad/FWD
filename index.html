@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register | HealthCare+</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthCare+ | Home</title>
 
   <style>
+    /* Basic setup */
     * {
       margin: 0;
       padding: 0;
@@ -14,38 +15,39 @@
     }
 
     body {
-      background: linear-gradient(135deg, #e8f5f2 0%, #f9fdfb 100%);
+      background-color: #f9fdfb;
       color: #2f4f4f;
       line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
+    /* --- Header section --- */
     header {
-      background-color: #ffffffcc;
-      backdrop-filter: blur(6px);
+      background-color: #e8f5f2;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px 40px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-    header h1 {
-      font-size: 1.7rem;
+    .site-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
       font-weight: 700;
       color: #00796b;
-      letter-spacing: 0.5px;
+    }
+
+    .site-logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
     }
 
     nav a {
       color: #2f4f4f;
       text-decoration: none;
-      margin-left: 25px;
+      margin-left: 22px;
       font-weight: 500;
       transition: color 0.3s ease;
     }
@@ -54,177 +56,223 @@
       color: #00796b;
     }
 
-    .container {
-      max-width: 650px;
-      margin: 80px auto;
-      background: #ffffff;
-      padding: 40px 35px;
-      border-radius: 14px;
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
-      animation: fadeIn 0.8s ease;
+    /* --- Welcome section (hero) --- */
+    .welcome-section {
+      background: linear-gradient(
+          rgba(0, 121, 107, 0.15),
+          rgba(0, 121, 107, 0.15)
+        ),
+        url('https://images.unsplash.com/photo-1588776814546-3121dd411a4d?auto=format&fit=crop&w=1470&q=80')
+          no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 120px 20px;
+    }
+
+    .welcome-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #2f4f4f;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 50px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-section h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #00796b;
+    }
+
+    .welcome-section p {
+      font-size: 1rem;
+      color: #3a5540;
+      margin-bottom: 25px;
+    }
+
+    /* --- Main button --- */
+    .main-button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .main-button:hover {
+      background-color: #1e7e34;
+      transform: scale(1.05);
+    }
+
+    /* --- Popup box (modal) --- */
+    .popup-bg {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s;
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    h2 {
+    .popup-box {
+      background-color: #ffffff;
+      padding: 30px 40px;
+      border-radius: 10px;
       text-align: center;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      animation: slideUp 0.3s ease;
+      position: relative;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .popup-box h2 {
+      margin-bottom: 15px;
       color: #00796b;
-      font-size: 1.9rem;
+    }
+
+    .popup-box p {
+      color: #3a5540;
       margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    .popup-box a {
+      display: inline-block;
+      margin: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
       font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+    .popup-box a.login-link {
+      background-color: #007bff;
+      color: white;
     }
 
-    .form-row {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
+    .popup-box a.login-link:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
     }
 
-    .form-row .field {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      transition: all 0.3s ease;
-      background-color: #fdfdfd;
-    }
-
-    input:focus {
-      border-color: #28a745;
-      box-shadow: 0 0 6px rgba(40, 167, 69, 0.25);
-      background-color: #f9fffa;
-      outline: none;
-    }
-
-    .btn {
+    .popup-box a.register-link {
       background-color: #28a745;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 600;
+      color: white;
+    }
+
+    .popup-box a.register-link:hover {
+      background-color: #218838;
+      transform: scale(1.05);
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 22px;
+      color: #444;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.25s ease;
     }
 
-    .btn:hover {
-      background-color: #1e7e34;
-      transform: translateY(-2px);
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
+    /* --- Footer --- */
     footer {
       background-color: #e8f5f2;
       color: #2f4f4f;
       text-align: center;
-      padding: 18px 0;
+      padding: 15px 0;
       font-size: 0.9rem;
-      margin-top: auto;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+      margin-top: 60px;
     }
 
-    @media (max-width: 600px) {
-      .form-row {
-        flex-direction: column;
-      }
-
+    /* --- Responsive adjustments --- */
+    @media (max-width: 768px) {
       header {
         flex-direction: column;
         text-align: center;
       }
 
       nav {
-        margin-top: 8px;
+        margin-top: 10px;
+      }
+
+      .welcome-box {
+        padding: 40px 20px;
       }
     }
   </style>
 </head>
 
 <body>
+
   <header>
-    <h1>Register</h1>
+    <div class="site-logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="Hospital Logo">
+      HealthCare+
+    </div>
     <nav>
-      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="registration.html">Register</a>
+      <a href="appointment.html">Book Appointment</a>
+      <a href="doctors.html">Doctors</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About</a>
     </nav>
   </header>
 
-  <main>
-    <section class="container">
-      <h2>Patient Registration</h2>
-      <form id="regForm">
-        <div class="form-row">
-          <div class="field">
-            <input type="text" id="name" placeholder="First Name" required />
-          </div>
-          <div class="field">
-            <input type="text" id="lastname" placeholder="Surname" required />
-          </div>
-        </div>
+  <section class="welcome-section">
+    <div class="welcome-box">
+      <h1>Welcome to HealthCare+</h1>
+      <p>Book appointments easily, consult doctors, and manage your health with ease — all in one place.</p>
+      <button class="main-button" id="openPopupBtn">Get Started</button>
+    </div>
+  </section>
 
-        <div class="form-row">
-          <div class="field">
-            <input type="email" id="email" placeholder="Email" required />
-          </div>
-          <div class="field">
-            <input type="tel" id="phone" placeholder="Phone Number" required />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="field">
-            <input type="password" id="password" placeholder="Password" required />
-          </div>
-          <div class="field">
-            <input type="password" id="confirm" placeholder="Confirm Password" required />
-          </div>
-        </div>
-
-        <button type="submit" class="btn">Create Account</button>
-      </form>
-    </section>
-  </main>
+  <div id="popupContainer" class="popup-bg">
+    <div class="popup-box">
+      <span class="close-popup" id="closePopup">&times;</span>
+      <h2>Welcome!</h2>
+      <p>Do you already have an account?</p>
+      <a href="login.html" class="login-link">Login</a>
+      <p>If not, register:</p>
+      <a href="registration.html" class="register-link">Register</a>
+    </div>
+  </div>
 
   <footer>
     &copy; 2025 HealthCare+. All rights reserved.
   </footer>
 
   <script>
-    document.getElementById("regForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const pass = document.getElementById("password").value;
-      const confirm = document.getElementById("confirm").value;
-      if (pass !== confirm) {
-        alert("Passwords do not match!");
-        return;
-      }
-      alert("Registration successful! Welcome to HealthCare+");
-      e.target.reset();
-    });
+    const popup = document.getElementById("popupContainer");
+    const openPopup = document.getElementById("openPopupBtn");
+    const closePopup = document.getElementById("closePopup");
+
+    openPopup.onclick = () => popup.style.display = "flex";
+    closePopup.onclick = () => popup.style.display = "none";
+    window.onclick = e => { if (e.target === popup) popup.style.display = "none"; };
   </script>
+
 </body>
 </html>
