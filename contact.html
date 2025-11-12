@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact - HMS</title>
+  <title>Contact Us | HealthCare+</title>
   <style>
-    /* General Reset */
     * {
       margin: 0;
       padding: 0;
@@ -14,81 +13,99 @@
     }
 
     body {
-      background-color: #f8fdf8;
-      color: #1f3b2d;
+      background-color: #f7fbf8;
+      color: #033b2e;
     }
 
-    /* Navbar */
     header {
-      border-top: 4px solid #4b2e1a;
+      background-color: #e7f3ef;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .navbar {
-      background-color: #dff5e3; /* lighter green */
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 60px;
     }
 
     .navbar h1 {
-      color: #1c3b2a;
-      font-size: 26px;
+      color: #007b63;
+      font-size: 24px;
+      font-weight: 700;
     }
 
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 25px;
+      gap: 20px;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: #1c3b2a;
-      font-weight: 600;
-      font-size: 17px;
+      color: #033b2e;
+      font-weight: 500;
       transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
-      color: #057e3d;
+      color: #007b63;
     }
 
-    /* Contact Form Section */
-    .content {
+    .contact-card {
+      max-width: 600px;
+      background: #ffffff;
+      margin: 80px auto;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       text-align: center;
-      margin-top: 80px;
     }
 
-    .content h2 {
-      color: #1c3b2a;
-      font-size: 28px;
+    .contact-card h2 {
+      color: #007b63;
+      font-size: 26px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .contact-card p {
+      color: #05543f;
+      font-size: 16px;
       margin-bottom: 30px;
+      line-height: 1.6;
     }
 
     form {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 15px;
+      align-items: center;
     }
 
     input, textarea {
-      width: 320px;
+      width: 90%;
       padding: 12px;
-      border: 1.5px solid #3c7054;
+      border: 1.5px solid #b5d5c4;
       border-radius: 6px;
+      background-color: #f8fdf8;
       font-size: 15px;
-      background-color: #f4fbf4;
+      transition: all 0.3s ease;
     }
 
     input:focus, textarea:focus {
       outline: none;
-      border-color: #1c3b2a;
+      border-color: #007b63;
+      box-shadow: 0 0 5px rgba(0, 123, 99, 0.3);
     }
 
     .btn {
-      background-color: #3c7054;
+      background-color: #00a36c;
       color: white;
       padding: 12px 35px;
       border: none;
@@ -100,7 +117,41 @@
     }
 
     .btn:hover {
-      background-color: #2f5c43;
+      background-color: #008856;
+    }
+
+    .contact-info {
+      margin-top: 35px;
+      text-align: left;
+      background-color: #f1faf5;
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      color: #033b2e;
+      line-height: 1.8;
+    }
+
+    .contact-info strong {
+      color: #007b63;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #e7f3ef;
+      padding: 15px;
+      color: #033b2e;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 600px) {
+      .contact-card {
+        margin: 50px 15px;
+        padding: 25px;
+      }
+      input, textarea {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -115,20 +166,33 @@
     </nav>
   </header>
 
-  <section class="content">
+  <section class="contact-card">
     <h2>Get in Touch</h2>
+    <p>We’d love to hear from you! Fill out the form below or reach us directly using the contact details provided.</p>
+
     <form id="contactForm">
       <input type="text" id="cname" placeholder="Your Name" required />
       <input type="email" id="cemail" placeholder="Your Email" required />
       <textarea id="cmsg" placeholder="Your Message" rows="5" required></textarea>
       <button type="submit" class="btn">Send Message</button>
     </form>
+
+    <div class="contact-info">
+     <p>&#128205; Address: Bengaluru, India</p> 
+     <p>&#128222; Phone: +91 00000 00000</p> 
+     <p>&#9993; Email: support@healthcareplus.com</p> 
+     <p>&#128337; Office Hours: Mon – Sat, 9 AM – 6 PM</p> 
+    </div>
   </section>
+
+  <footer>
+    © 2025 HealthCare+. All rights reserved.
+  </footer>
 
   <script>
     document.getElementById("contactForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      alert("Message sent successfully!");
+      alert("✅ Message sent successfully!");
       e.target.reset();
     });
   </script>
