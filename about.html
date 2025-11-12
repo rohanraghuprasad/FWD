@@ -3,38 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About - HMS</title>
+  <title>About | HealthCare+</title>
+
   <style>
-    /* Reset and Base Styling */
+    /* Reset & Base Styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
     }
 
     body {
-      background-color: #f8fdf8;
-      color: #1f3b2d;
+      background-color: #f9fdfb;
+      color: #2f4f4f;
+      line-height: 1.6;
     }
 
-    /* Navbar */
+    /* Header */
     header {
-      border-top: 4px solid #4b2e1a;
+      background-color: #e8f5f2;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .navbar {
-      background-color: #dff5e3; /* light green like Book an Appointment */
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 60px;
+      padding: 15px 40px;
     }
 
     .navbar h1 {
-      color: #1c3b2a;
-      font-size: 26px;
+      font-size: 1.6rem;
       font-weight: 700;
+      color: #00796b;
     }
 
     .nav-links {
@@ -44,41 +46,49 @@
     }
 
     .nav-links a {
+      color: #2f4f4f;
       text-decoration: none;
-      color: #1c3b2a;
-      font-weight: 600;
-      font-size: 17px;
+      font-weight: 500;
+      font-size: 1rem;
       transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
-      color: #3c7054;
+      color: #00796b;
     }
 
-    /* Content Section */
+    /* Main Content */
     .content {
       max-width: 800px;
-      margin: 80px auto;
-      padding: 0 20px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.6s ease;
       text-align: center;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .content h2 {
-      color: #1c3b2a;
-      font-size: 30px;
-      margin-bottom: 25px;
+      color: #00796b;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
     }
 
     .content p {
-      font-size: 17px;
-      line-height: 1.6;
-      color: #2a4d38;
-      margin-bottom: 40px;
+      font-size: 1rem;
+      color: #3a5d5d;
+      margin-bottom: 35px;
     }
 
     .content h3 {
-      color: #1c3b2a;
-      font-size: 24px;
+      color: #00796b;
+      font-size: 1.3rem;
       margin-bottom: 15px;
     }
 
@@ -90,18 +100,39 @@
     }
 
     .content li {
-      font-size: 17px;
+      font-size: 1rem;
       padding: 8px 0;
-      color: #1f3b2d;
+      color: #2f4f4f;
     }
 
     .content li::before {
       content: "• ";
-      color: #3c7054;
+      color: #28a745;
       font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #e8f5f2;
+      color: #2f4f4f;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav-links {
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav class="navbar">
@@ -115,16 +146,24 @@
 
   <section class="content">
     <h2>About HealthCare+</h2>
-    <p>HealthCare+ is a hospital management web application that simplifies 
-       patient registration and booking of appointments. Built using HTML, CSS, and JavaScript.</p>
+    <p>
+      HealthCare+ is a hospital management system designed to simplify patient
+      registration, doctor scheduling, and appointment booking. Built using
+      HTML, CSS, and JavaScript, it provides a clean, efficient, and user-friendly
+      experience for both patients and staff.
+    </p>
 
     <h3>Our Team</h3>
     <ul>
-      <li> Member 1 – Rohan Raghu Prasad</li>
-      <li> Member 2 – Shamanth Varma</li>
-      <li> Member 3 – Siddu Lokeshwar Reddy</li>
-      <li> Member 4 – Chetan Reddy G V</li>
+      <li>Rohan Raghu Prasad - 1BF24CS255</li>
+      <li>Shamanth Varma - 1BF24CS275</li>
+      <li>Siddu Lokeshwar Reddy - 1BF24CS291</li>
+      <li>Chetan Reddy G V - DIP</li>
     </ul>
   </section>
+
+  <footer>
+    &copy; 2025 HealthCare+. All rights reserved.
+  </footer>
 </body>
 </html>
