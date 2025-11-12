@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doctor Scheduling</title>
+  <title>Doctor Scheduling | HealthCare+</title>
   <style>
-  
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #f7fcf8;
+      background-color: #f7fbf8;
       margin: 0;
       padding: 0;
-      color: #1f3c2c;
+      color: #033b2e;
     }
 
-  
     header {
-      background-color: #dff5e3;
-      padding: 15px 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      border-top: 4px solid #4b2e1a;
+      background-color: #e7f3ef;
+      padding: 16px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .navbar {
@@ -28,12 +28,13 @@
       align-items: center;
       max-width: 1000px;
       margin: 0 auto;
+      padding: 0 20px;
     }
 
     .navbar h1 {
-      margin: 0;
-      font-size: 26px;
-      color: #1f3c2c;
+      font-size: 24px;
+      color: #007b63;
+      font-weight: 700;
     }
 
     .nav-links {
@@ -46,58 +47,81 @@
 
     .nav-links li a {
       text-decoration: none;
-      color: #1f3c2c;
+      color: #033b2e;
       font-weight: 500;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
     }
 
     .nav-links li a:hover {
-      color: #3a6f51;
+      color: #007b63;
     }
 
-
     .content {
-      max-width: 800px;
-      margin: 50px auto;
+      max-width: 850px;
+      margin: 60px auto;
       background-color: #ffffff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
     }
 
     h2 {
-      text-align: center;
-      color: #228b22;
-      margin-bottom: 20px;
+      color: #007b63;
+      margin-bottom: 25px;
+      font-size: 24px;
+      font-weight: 700;
     }
 
-    
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     th, td {
-      padding: 12px;
-      border: 1px solid #b3afaf;
+      padding: 14px;
+      border: 1px solid #e3f2eb;
       text-align: left;
-      color: #1f3c2c;
+      color: #033b2e;
     }
 
     th {
-      background-color: #cdeed5; 
-      font-weight: bold;
+      background-color: #e7f3ef;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 14px;
     }
 
     tr:nth-child(even) {
-      background-color: #e2f6e6; /
+      background-color: #f9fdfb;
     }
 
-    @media (max-width: 800px) {
+    tr:hover {
+      background-color: #e3f8f0;
+      transition: background-color 0.3s;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #e7f3ef;
+      padding: 15px;
+      margin-top: 50px;
+      color: #033b2e;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
       .navbar {
         flex-direction: column;
         gap: 10px;
+      }
+
+      .content {
+        margin: 30px 15px;
+        padding: 25px 15px;
       }
 
       table, thead, tbody, th, td, tr {
@@ -105,8 +129,13 @@
       }
 
       tr {
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
+        margin-bottom: 15px;
+        border: 1px solid #b3b3b3;
+        border-radius: 6px;
+      }
+
+      td {
+        padding: 10px;
       }
     }
   </style>
@@ -117,43 +146,29 @@
       <h1>Our Doctors</h1>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        
       </ul>
     </nav>
   </header>
 
   <section class="content">
-    <h2>Doctor List</h2>
-    <table id="doctorTable">
+    <h2>Doctor Schedule</h2>
+    <table>
       <tr>
         <th>Doctor Name</th>
         <th>Specialization</th>
+        <th>Available Days</th>
+        <th>Time</th>
       </tr>
-      <tr>
-        <td>Dr. Asha Mehta</td>
-        <td>Cardiologist</td>
-      </tr>
-      <tr>
-        <td>Dr. Rohan Patel</td>
-        <td>Dermatologist</td>
-      </tr>
-      <tr>
-        <td>Dr. Priya Sharma</td>
-        <td>Pediatrician</td>
-      </tr>
-      <tr>
-        <td>Dr. Arjun Nair</td>
-        <td>Neurologist</td>
-      </tr>
-      <tr>
-        <td>Dr. Kavita Iyer</td>
-        <td>Orthopedic Surgeon</td>
-      </tr>
-      <tr>
-        <td>Dr. Neel Rao</td>
-        <td>Psychiatrist</td>
-      </tr>
+      <tr><td>Dr. ABC</td><td>Cardiologist</td><td>Mon - Sat</td><td>10:00 AM - 4:00 PM</td></tr>
+      <tr><td>Dr. DEF</td><td>Dermatologist</td><td>Mon - Fri</td><td>9:00 AM - 3:00 PM</td></tr>
+      <tr><td>Dr. GHI</td><td>Pediatrician</td><td>Mon - Fri</td><td>11:00 AM - 6:00 PM</td></tr>
+      <tr><td>Dr. JKL</td><td>Neurologist</td><td>Mon - Thu, Sat</td><td>10:00 AM - 2:00 PM</td></tr>
+      <tr><td>Dr. MNO</td><td>Orthopedic Surgeon</td><td>Mon - Sat</td><td>12:00 PM - 5:00 PM</td></tr>
     </table>
   </section>
+
+  <footer>
+    &copy; 2025 HealthCare+. All rights reserved.
+  </footer>
 </body>
 </html>
