@@ -1,85 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Book Appointment | HealthCare+</title>
 
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #f9fffb;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
     }
 
+    body {
+      background-color: #f9fdfb;
+      color: #2f4f4f;
+      line-height: 1.6;
+    }
     header {
-      background-color: #e8f5e9;
-      padding: 15px 25px;
+      background-color: #e8f5f2;
+      border-top: 4px solid #4e342e;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 4px solid #4e342e;
+      padding: 15px 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-    h1 {
-      font-size: 24px;
-      color: #2f4f4f;
-      margin: 0;
+    header h1 {
+      font-size: 1.6rem;
+      color: #00796b;
+      font-weight: 700;
     }
 
     nav a {
       color: #2f4f4f;
       text-decoration: none;
-      font-weight: 500;
       font-size: 16px;
-      transition: color 0.3s;
+      font-weight: 500;
+      margin-left: 25px;
+      transition: color 0.3s ease;
     }
 
     nav a:hover {
-      color: #07883b;
+      color: #00796b;
     }
 
     .form-container {
-      max-width: 400px;
-      margin: 60px auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      max-width: 480px;
+      margin: 70px auto;
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.6s ease;
     }
 
-    form label {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: #00796b;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+    }
+
+    label {
       display: block;
-      margin-top: 10px;
-      font-weight: bold;
-      color: #444;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #2f4f4f;
     }
 
-    form input,
-    form select,
+    input,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      margin-top: 5px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 5px rgba(40, 167, 69, 0.2);
+      outline: none;
+    }
+
     button {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 15px;
-      box-sizing: border-box;
-    }
-
-    button {
       background-color: #28a745;
-      color: white;
+      color: #fff;
       border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      margin-top: 15px;
+      margin-top: 25px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     button:hover {
       background-color: #1e7e34;
+      transform: scale(1.03);
+    }
+
+    footer {
+      background-color: #e8f5f2;
+      color: #2f4f4f;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9rem;
+      margin-top: 60px;
     }
 
     @media (max-width: 600px) {
@@ -96,40 +136,51 @@
 
 <body>
   <header>
-    <h1>Book an Appointment</h1>
+    <h1>Book Appointment</h1>
     <nav>
       <a href="index.html">Home</a>
     </nav>
   </header>
 
-  <section class="form-container">
-    <form id="appointmentForm">
-      <label for="fullname">Full Name:</label>
-      <input type="text" id="fullname" name="fullname" required>
+  <main>
+    <section class="form-container">
+      <h2>Book Your Appointment</h2>
+      <form id="appointmentForm">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required />
 
-      <label for="department">Department:</label>
-      <select id="department" required>
-        <option value="">Select Department</option>
-        <option>General Medicine</option>
-        <option>General Surgery</option>
-        <option>Cardiology</option>
-        <option>Orthopedics</option>
-        <option>Pediatrics</option>
-        <option>Oncology</option>
-        <option>Ophthamology</option>
-      </select>
+        <label for="department">Department</label>
+        <select id="department" required>
+          <option value="">Select Department</option>
+          <option>General Medicine</option>
+          <option>General Surgery</option>
+          <option>Cardiology</option>
+          <option>Orthopedics</option>
+          <option>Pediatrics</option>
+          <option>Oncology</option>
+          <option>Ophthalmology</option>
+          <option>Endocrinology</option>
+          <option>Psychiatry</option>
+          <option>Dermatology</option>
+          <option>Neurology</option>
+        </select>
 
-      <label for="appointment-date">Date:</label>
-      <input type="datetime-local" id="appointment-date" name="appointment-date" required>
+        <label for="appointment-date">Appointment Date & Time</label>
+        <input type="datetime-local" id="appointment-date" name="appointment-date" required />
 
-      <button type="submit">Book Appointment</button>
-    </form>
-  </section>
+        <button type="submit">Book Appointment</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 HealthCare+. All rights reserved.
+  </footer>
 
   <script>
     document.getElementById("appointmentForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      alert("Appointment booked successfully!");
+      alert("✅ Appointment booked successfully!");
       e.target.reset();
     });
   </script>
