@@ -3,123 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HealthCare+ | Home</title>
+  <title>Home - Hospital Management</title>
 
   <style>
 
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", "Segoe UI", sans-serif;
+      scroll-behavior: smooth; /* Smooth scroll */
     }
 
     body {
-      background-color: #f9fdfb;
-      color: #2f4f4f;
-      overflow-x: hidden;
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background: #d6ebe8;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
 
     header {
-      background-color: #e8f5f2;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 50px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  background-color: #e7f3ef;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-    .site-logo {
-      display: flex;
-      align-items: center;
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: #00796b;
-    }
 
-    .site-logo img {
-      width: 45px;
-      height: 45px;
-      margin-right: 12px;
-    }
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
 
-    nav a {
-      color: #2f4f4f;
-      margin-left: 25px;
-      font-weight: 500;
-      transition: color 0.3s ease, transform 0.2s ease;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    nav a:hover {
-      color: #00796b;
-      transform: scale(1.05);
-    }
 
-    .welcome-section {
-      background: linear-gradient(
-          rgba(0, 121, 107, 0.2),
-          rgba(0, 121, 107, 0.2)
-        ),
-        url('https://images.unsplash.com/photo-1588776814546-3121dd411a4d?auto=format&fit=crop&w=1470&q=80')
-        no-repeat center center/cover;
-      color: #fff;
-      text-align: center;
-      padding: 130px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      animation: fadeIn 1s ease;
-    }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .welcome-box {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #2f4f4f;
-      max-width: 620px;
-      margin: 0 auto;
-      padding: 55px 35px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      animation: slideUp 0.8s ease;
-    }
+.brand img {
+  width: 42px;
+  height: 42px;
+}
 
-    .welcome-box h1 {
-      font-size: 2.2rem;
-      color: #00796b;
-      margin-bottom: 12px;
-    }
+.brand h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #007b63;
+  margin: 0;
+}
 
-    .welcome-box p {
-      font-size: 1rem;
-      color: #3a5540;
-      margin-bottom: 25px;
-      line-height: 1.6;
-    }
 
-    .main-button {
-      background-color: #28a745;
-      color: #fff;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
 
-    .main-button:hover {
-      background-color: #1e7e34;
-      transform: scale(1.07);
-    }
+.nav-links a {
+  text-decoration: none;
+  color: #033b2e;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color .3s ease;
+}
 
+.nav-links a:hover {
+  color: #007b63;
+}
 
     .popup-bg {
       display: none;
@@ -165,8 +125,7 @@
       font-weight: 600;
       transition: all 0.3s ease;
     }
-
-    .login-link {
+     .login-link {
       background-color: #007bff;
       color: #fff;
     }
@@ -193,39 +152,148 @@
       cursor: pointer;
     }
 
-  
-    footer {
-      background-color: #e8f5f2;
+
+    .welcome-section {
+      background: white;
+      width: 55%;
+      margin: 90px auto;
+      padding: 50px 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
       text-align: center;
-      padding: 18px 0;
-      color: #2f4f4f;
-      margin-top: 70px;
-      font-size: 0.9rem;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .welcome-section h1 {
+      font-size: 32px;
+      color: #00796b;
+      margin-bottom: 15px;
+    }
+     .main-button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .main-button:hover {
+      background-color: #1e7e34;
+      transform: scale(1.07);
+    }
+
+    .welcome-section p {
+      font-size: 17px;
+      color: #004d40;
+      line-height: 1.6;
+    }
+
+    .welcome-section button {
+      background: #00a36c;
+      border: none;
+      padding: 12px 28px;
+      margin-top: 25px;
+      font-size: 16px;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .welcome-section button:hover {
+      background: #008857;
+    }
+
+    .features-section {
+      margin: 60px auto;
+      width: 90%;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      animation: fadeIn 1.4s ease-in-out;
+    }
+
+    .card {
+      background: white;
+      width: 280px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 90px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      color: #004d40;
+      margin: 15px 0 10px;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    footer {
+      margin-top: 100px;
+      background: #e7f3ef;
+      padding: 25px;
+      text-align: center;
+      color: #004d40;
+      font-size: 15px;
+      animation: fadeIn 2s ease-in-out;
     }
 
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @media (max-width: 900px) {
+      .welcome-section {
+        width: 75%;
+      }
     }
 
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       header {
-        flex-direction: column;
+        font-size: 22px;
+      }
+
+      nav {
         text-align: center;
         padding: 15px;
       }
-      nav {
-        margin-top: 10px;
+
+      nav a {
+        margin: 10px;
+        display: inline-block;
       }
-      .welcome-box {
-        padding: 40px 20px;
+
+      .welcome-section {
+        width: 90%;
+        padding: 35px 20px;
+      }
+
+      .features-section {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 85%;
       }
     }
   </style>
@@ -233,26 +301,32 @@
 
 <body>
 
-  <header>
-    <div class="site-logo">
-      <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="Hospital Logo">
-      HealthCare+
-    </div>
-    <nav>
-      <a href="login.html">Login</a>
-      <a href="registration.html">Register</a>
-      <a href="appointment.html">Book Appointment</a>
-      <a href="doctors.html">Doctors</a>
-      <a href="contact.html">Contact</a>
-      <a href="about.html">About</a>
-    </nav>
-  </header>
+<header>
+  <nav class="navbar">
+    
+    <div class="brand">
+  <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="Hospital Logo">
+  <h1>HealthCare+</h1>
+</div>
 
-  <section class="welcome-section">
-    <div class="welcome-box">
-      <h1>Welcome to HealthCare+</h1>
-      <p>Book appointments easily, consult doctors, and manage your health with ease — all in one place.</p>
-      <button class="main-button" id="openPopupBtn">Get Started</button>
+    <ul class="nav-links">
+      <li><a href="login.html">Login</a></li>
+      <li><a href="registration.html">Register</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+
+  </nav>
+</header>
+
+
+<section class="welcome-section">
+  <h1>Welcome to HealthCare+</h1>
+  <p>
+    Book appointments easily, consult doctors, and manage your health with ease —  
+    all in one place.
+  </p>
+  <button class="main-button" id="openPopupBtn">Get Started</button>
     </div>
   </section>
 
@@ -267,11 +341,27 @@
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 HealthCare+. All rights reserved.
-  </footer>
+<section class="features-section">
 
-  <script>
+  
+  <div class="card" onclick="window.location.href='doctors.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png">
+    <h3>Doctors</h3>
+    <p>Check specialties, experience, and availability.</p>
+  </div>
+
+  <div class="card" onclick="window.location.href='appointment.html'">
+  <img src="https://cdn-icons-png.flaticon.com/512/2982/2982277.png">
+  <h3>Book an Appointment</h3>
+  <p>Book, manage, and track patient appointments smoothly.</p>
+</div>
+
+</section>
+
+<footer>
+  © 2025 HealthCare+. All rights reserved.
+</footer>
+ <script>
     const popup = document.getElementById("popupContainer");
     const openPopup = document.getElementById("openPopupBtn");
     const closePopup = document.getElementById("closePopup");
