@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Billing, Payment & Appointment Token</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      background: #fff;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    form label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      text-align: left;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #45a049;
+    }
+    .qr-code {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      display: block;
+    }
+    /* Hide sections by default */
+    #payment-section, #payment-success, #appointment-receipt, #printBtn {
+      display: none;
+    }
+
+    /* Payment Successful Screen */
+    #payment-success {
+      background: #0aad0a; /* Green background */
+      color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .success-check-icon {
+      font-size: 60px;
+      margin: 10px 0;
+    }
+    .payment-success-top {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .payment-success-top h3 {
+      font-size: 24px;
+      margin: 5px 0;
+    }
+    .payment-success-top p {
+      font-size: 14px;
+      margin: 0;
+    }
+    .payment-success-card {
+      background: #fff;
+      color: #333;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: left;
+      margin: 0 auto;
+      max-width: 400px;
+      position: relative;
+    }
+    .payment-success-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      float: left;
+    }
+    .payment-success-card h4 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .payment-success-card .phone {
+      color: #555;
+      margin: 2px 0;
+      font-size: 14px;
+    }
+    .payment-amount {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    .split-expense {
+      color: #0aad0a;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+    .success-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .success-actions button {
+      background: #f1f1f1;
+      color: #333;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .success-actions button:hover {
+      background: #e2e2e2;
+    }
+    .done-btn {
+      background: #fff;
+      color: #0aad0a;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .done-btn:hover {
+      background: #e6e6e6;
+    }
+
+    /* Appointment Token Style */
+    .appointment-token {
+      border: 1px solid #ccc;
+      padding: 20px;
+      background: #fff;
+      text-align: left;
+    }
+    .token-header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .token-header span {
+      display: block;
+      font-size: 16px;
+      font-weight: normal;
+      color: #4CAF50;
+    }
+    .token-body p {
+      font-size: 16px;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    .token-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Billing Form -->
+  <div id="billing-form">
+    <h2>Billing & Payment</h2>
+    <form id="billingForm">
+      <!-- Patient Name Dropdown -->
+      <label for="patientSelect">Patient Name:</label>
+      <select id="patientSelect" required>
+        <option value="">-- Select Patient --</option>
+      </select>
+
+      <!-- Auto-filled Fields -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Email" readonly />
+
+      <label for="doctor">Doctor's Name:</label>
+      <input type="text" id="doctor" placeholder="Doctor" readonly />
+
+      <label for="specialty">Specialty:</label>
+      <input type="text" id="specialty" placeholder="Specialty" readonly />
+
+      <label for="amount">Amount (₹):</label>
+      <input type="number" id="amount" placeholder="Amount" readonly />
+
+      <button type="button" class="btn" onclick="proceedToPayment()">Proceed to Payment</button>
+    </form>
+  </div>
+
+  <!-- Payment Section -->
+  <div id="payment-section">
+    <h2>Payment</h2>
+    <p><strong>Scan & Pay using PhonePe</strong></p>
+    <img
+      src="C:/Users/aksha/Downloads/WhatsApp Image 2025-03-11 at 02.01.03.jpeg"
+      alt="PhonePe QR Code"
+      class="qr-code"
+    />
+    <p><strong>UPI Number:</strong> 8310881822</p>
+    <button type="button" class="btn" onclick="confirmPayment()">Confirm Payment</button>
+  </div>
+
+  <!-- Payment Success Screen (Like Reference Image) -->
+  <div id="payment-success">
+    <div class="payment-success-top">
+      <div class="success-check-icon">✔</div>
+      <h3>Payment Successful</h3>
+      <p id="paymentDateTime"></p>
+    </div>
+    <div class="payment-success-card">
+      <img id="patientPhoto" src="https://via.placeholder.com/60" alt="Profile" />
+      <h4 id="paymentName"></h4>
+      <p class="phone" id="paymentPhone"></p>
+      <div class="payment-amount" id="paymentAmount"></div>
+      <div class="split-expense">Split Expense</div>
+      <div class="success-actions">
+        <button>View Details</button>
+        <button>Share Receipt</button>
+      </div>
+    </div>
+    <button class="done-btn" onclick="donePayment()">Done</button>
+  </div>
+
+  <!-- Appointment Receipt -->
+  <div id="appointment-receipt"></div>
+  <button id="printBtn" class="btn" onclick="window.print()">Print Appointment Token</button>
+</div>
+
+<script>
+  // Full patient data with 10 entries (including Likith Maam's + 9 others)
+  const patients = [
+
+    {
+      name: "Alice Brown",
+      email: "alice@example.com",
+      phone: "+911234567890",
+      doctor: "Dr. Rajesh Verma",
+      specialty: "Neurology",
+      amount: 2000,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Bob Green",
+      email: "bob@example.com",
+      phone: "+911234567891",
+      doctor: "Dr. Anita Sharma",
+      specialty: "Orthopedics",
+      amount: 3000,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Cathy White",
+      email: "cathy@example.com",
+      phone: "+911234567892",
+      doctor: "Dr. Ramesh Mehta",
+      specialty: "Gastroenterology",
+      amount: 1800,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Derek Black",
+      email: "derek@example.com",
+      phone: "+911234567893",
+      doctor: "Dr. Preeti Nair",
+      specialty: "Gynecology",
+      amount: 1200,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Eve Gray",
+      email: "eve@example.com",
+      phone: "+911234567894",
+      doctor: "Dr. Vikram Patel",
+      specialty: "Pediatrics",
+      amount: 5000,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Frank Blue",
+      email: "frank@example.com",
+      phone: "+911234567895",
+      doctor: "Dr. Nidhi Bansal",
+      specialty: "Dermatology",
+      amount: 2200,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Gina Red",
+      email: "gina@example.com",
+      phone: "+911234567896",
+      doctor: "Dr. Sandeep Rao",
+      specialty: "Urology",
+      amount: 2800,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Henry Gold",
+      email: "henry@example.com",
+      phone: "+911234567897",
+      doctor: "Dr. Arjun Das",
+      specialty: "Oncology",
+      amount: 3500,
+      photo: "https://via.placeholder.com/60"
+    },
+    {
+      name: "Ivy Orange",
+      email: "ivy@example.com",
+      phone: "+911234567898",
+      doctor: "Dr. Kiran Singh",
+      specialty: "Endocrinology",
+      amount: 2400,
+      photo: "https://via.placeholder.com/60"
+    }
+  ];
+
+  // We'll store payment details here for the final appointment token
+  let currentPaymentData = {};
+
+  // Populate patient dropdown on page load
+  window.onload = function() {
+    const patientSelect = document.getElementById("patientSelect");
+    patients.forEach((p) => {
+      let option = document.createElement("option");
+      option.value = p.name; // Use patient's name as value
+      option.text = p.name;
+      patientSelect.add(option);
+    });
+  };
+
+  // When patient is selected, auto-fill the fields
+  document.getElementById("patientSelect").addEventListener("change", function() {
+    const selectedName = this.value;
+    const patient = patients.find((p) => p.name === selectedName);
+
+    if (patient) {
+      document.getElementById("email").value = patient.email;
+      document.getElementById("doctor").value = patient.doctor;
+      document.getElementById("specialty").value = patient.specialty;
+      document.getElementById("amount").value = patient.amount;
+    } else {
+      // Clear fields if 'Select Patient' is chosen
+      document.getElementById("email").value = "";
+      document.getElementById("doctor").value = "";
+      document.getElementById("specialty").value = "";
+      document.getElementById("amount").value = "";
+    }
+  });
+
+  // Move from billing form to payment section
+  function proceedToPayment() {
+    // Basic validation
+    const selectedPatient = document.getElementById("patientSelect").value;
+    if (!selectedPatient) {
+      alert("Please select a patient before proceeding to payment.");
+      return;
+    }
+    // Hide form, show payment
+    document.getElementById("billing-form").style.display = "none";
+    document.getElementById("payment-section").style.display = "block";
+  }
+
+  // Confirm payment -> show Payment Success screen
+  function confirmPayment() {
+    // Collect field values
+    const patientName = document.getElementById("patientSelect").value;
+    if (!patientName) {
+      alert("Please select a patient.");
+      return;
+    }
+    const patient = patients.find((p) => p.name === patientName);
+
+    const now = new Date();
+    const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+    const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
+    const dateStr = now.toLocaleDateString('en-GB', dateOptions);
+    const timeStr = now.toLocaleTimeString('en-GB', timeOptions);
+
+    // Fill Payment Success Screen
+    document.getElementById("paymentDateTime").textContent = `${dateStr} at ${timeStr}`;
+    document.getElementById("paymentName").textContent = patient.name;
+    document.getElementById("paymentPhone").textContent = patient.phone;
+    document.getElementById("paymentAmount").textContent = `₹${patient.amount}`;
+    document.getElementById("patientPhoto").src = patient.photo;
+
+    // Hide Payment Section, Show Payment Success
+    document.getElementById("payment-section").style.display = "none";
+    document.getElementById("payment-success").style.display = "block";
+
+    // Prepare data for the appointment token
+    currentPaymentData = {
+      patientName: patient.name,
+      email: patient.email,
+      doctor: patient.doctor,
+      specialty: patient.specialty,
+      amount: patient.amount,
+      phone: patient.phone,
+      dateStr: dateStr,
+      timeStr: timeStr
+    };
+  }
+
+  // After Payment Success, user clicks "Done" -> Show Appointment Token
+  function donePayment() {
+    // Build the appointment token
+    const status = "Paid";
+    const tokenHTML = `
+      <div class="appointment-token">
+        <div class="token-header">
+          Global Care Hospital
+          <span>Appointment Token</span>
+        </div>
+        <div class="token-body">
+          <p><strong>Patient Name:</strong> ${currentPaymentData.patientName}</p>
+          <p><strong>Date:</strong> ${currentPaymentData.dateStr}</p>
+          <p><strong>Doctor:</strong> ${currentPaymentData.doctor}</p>
+          <p><strong>Specialty:</strong> ${currentPaymentData.specialty}</p>
+          <p><strong>Time:</strong> ${currentPaymentData.timeStr}</p>
+          <p><strong>Status:</strong> ${status}</p>
+          <p><strong>Email:</strong> ${currentPaymentData.email}</p>
+          <p><strong>Amount Paid:</strong> ₹${currentPaymentData.amount}</p>
+          <p><strong>Doctor's Signature:</strong> __________________________</p>
+        </div>
+        <div class="token-footer">
+          <em>Thank you for choosing Global Care Hospital</em>
+        </div>
+      </div>
+    `;
+    // Insert into the DOM
+    document.getElementById("appointment-receipt").innerHTML = tokenHTML;
+
+    // Hide Payment Success, Show Token + Print Button
+    document.getElementById("payment-success").style.display = "none";
+    document.getElementById("appointment-receipt").style.display = "block";
+    document.getElementById("printBtn").style.display = "inline-block";
+  }
+</script>
+</body>
+</html>

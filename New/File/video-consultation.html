@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Video Consultation</title>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+            width: 420px;
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        h2 {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        p {
+            color: #f1f1f1;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        label {
+            font-weight: bold;
+            text-align: left;
+            color: #fff;
+        }
+        select, input {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            transition: 0.3s;
+        }
+        select:hover, input:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        button {
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
+        }
+        button:hover {
+            background: linear-gradient(135deg, #ff5580, #ff3b6f);
+            transform: translateY(-3px);
+        }
+        .hidden {
+            display: none;
+        }
+        #confirmation {
+            margin-top: 15px;
+            padding: 18px;
+            background: rgba(40, 167, 69, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: bold;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        #video-call {
+            width: 800px;
+            height: 500px;
+            margin-top: 20px;
+            display: none;
+        }
+        .whatsapp-button {
+            display: block;
+            margin-top: 15px;
+            padding: 12px;
+            background: #25D366;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+        }
+        .whatsapp-button:hover {
+            background: #1ebe57;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Book a Video Consultation</h2>
+    <p>Connect with top doctors from the comfort of your home.</p>
+    <form id="videoConsultationForm">
+        <label for="doctor">Select Doctor:</label>
+        <select id="doctor" required>
+            <option value="" disabled selected>Select a doctor</option>
+            <option value="Dr. Anoop Misra">Dr. Anoop Misra - Diabetology/Endocrinology</option>
+            <option value="Dr. Manjinder Sandhu">Dr. Manjinder Sandhu - Cardiology</option>
+            <option value="Dr. Ramesh Gupta">Dr. Ramesh Gupta - Orthopedic</option>
+            <option value="Dr. Priya Sharma">Dr. Priya Sharma - Neurology</option>
+            <option value="Dr. Rajesh Verma">Dr. Rajesh Verma - Gastroenterology</option>
+            <option value="Dr. Sunita Kapoor">Dr. Sunita Kapoor - Gynecology</option>
+        </select>
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" required>
+        <label for="time">Select Time Slot:</label>
+        <select id="time" required></select>
+        <button type="submit">Book Consultation</button>
+    </form>
+    
+    <a href="https://wa.me/9145824532" target="_blank" class="whatsapp-button">Call via WhatsApp 📞</a>
+    
+    <div id="confirmation" class="hidden">
+        <h3>Booking Confirmed ✅</h3>
+        <p>Your video consultation with <span id="selectedDoctor"></span> is scheduled for <span id="selectedDate"></span> at <span id="selectedTime"></span>.</p>
+        <p>A confirmation email has been sent to you.</p>
+    </div>
+</div>
+<div id="video-call"></div>
+<script>
+    const timeSlots = [
+        "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
+        "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
+        "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM"
+        
+    ];
+    const timeSelect = document.getElementById("time");
+    timeSlots.forEach(slot => {
+        let option = document.createElement("option");
+        option.value = slot;
+        option.textContent = slot;
+        timeSelect.appendChild(option);
+    });
+    
+    document.getElementById("videoConsultationForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const doctor = document.getElementById("doctor").value;
+        const date = document.getElementById("date").value;
+        const time = document.getElementById("time").value;
+        if (doctor && date && time) {
+            document.getElementById("selectedDoctor").innerText = doctor;
+            document.getElementById("selectedDate").innerText = date;
+            document.getElementById("selectedTime").innerText = time;
+            document.getElementById("confirmation").classList.remove("hidden");
+            startVideoCall();
+        }
+    });
+
+    function startVideoCall() {
+        const roomName = "VideoCall-Doctor";  // Fixed room name for your number
+        const domain = "meet.jit.si";
+        const options = {
+            roomName: roomName,
+            width: "100%",
+            height: 500,
+            parentNode: document.getElementById("video-call"),
+            configOverwrite: { startWithAudioMuted: false, startWithVideoMuted: false },
+            interfaceConfigOverwrite: { SHOW_JITSI_WATERMARK: false }
+        };
+        document.getElementById("video-call").style.display = "block";
+        new JitsiMeetExternalAPI(domain, options);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambulance Booking System</title>
+    
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMKI_oSVobo7T9evTTQDamDbwFZ4q-_DU&callback=initMap"></script>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Form Container */
+        .container {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+
+        /* Heading */
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4d6d;
+            margin-bottom: 15px;
+        }
+
+        /* Form Labels */
+        label {
+            display: block;
+            font-weight: 600;
+            margin: 12px 0 5px;
+            text-align: left;
+            color: #333;
+        }
+
+        /* Inputs & Select */
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff4d6d;
+            box-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
+        }
+
+        /* Map */
+        #map {
+            width: 100%;
+            height: 220px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 2px solid #ddd;
+        }
+
+        /* Submit Button */
+        button {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 18px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #d8435d;
+            transform: scale(1.05);
+        }
+
+        /* Success Message */
+        #responseMessage {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="heading">🚑 Request an Ambulance</h2>
+        
+        <form id="ambulanceForm">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+
+            <label>Select Location</label>
+            <div id="map"></div>
+            <input type="text" id="location" placeholder="Location will appear here" readonly>
+
+            <label>Emergency Type</label>
+            <select id="emergencyType" required>
+                <option value="" disabled selected>🚨 Select Emergency Type</option>
+                <option value="Road Accident">🚗 Road Accident</option>
+                <option value="Heart Attack">❤️ Heart Attack</option>
+                <option value="Stroke">🧠 Stroke</option>
+                <option value="Breathing Difficulty">😷 Breathing Difficulty</option>
+                <option value="Severe Bleeding">🩸 Severe Bleeding</option>
+                <option value="Fire Burns">🔥 Fire & Burns</option>
+                <option value="Unconsciousness">😵 Unconsciousness</option>
+                <option value="Allergic Reaction">🤧 Allergic Reaction</option>
+                <option value="Pregnancy Emergency">🤰 Pregnancy Emergency</option>
+                <option value="Animal Bite">🐍 Animal Bite</option>
+                <option value="Other">⚠️ Other</option>
+            </select>
+
+            <button type="submit">🚑 Request Ambulance</button>
+        </form>
+
+        <p id="responseMessage">✔️ Ambulance Requested Successfully!</p>
+    </div>
+
+    <script>
+        let map, marker;
+
+        function initMap() {
+            const defaultLocation = { lat: 28.6139, lng: 77.2090 };
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 14,
+            });
+
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true,
+            });
+
+            google.maps.event.addListener(marker, "dragend", function () {
+                updateLocation(marker.getPosition());
+            });
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+                        map.setCenter(userLocation);
+                        marker.setPosition(userLocation);
+                        updateLocation(userLocation);
+                    },
+                    function () {
+                        alert("Geolocation failed. Please move the marker manually.");
+                    }
+                );
+            }
+        }
+
+        function updateLocation(position) {
+            document.getElementById("location").value = `Lat: ${position.lat().toFixed(6)}, Lng: ${position.lng().toFixed(6)}`;
+        }
+
+        document.getElementById("ambulanceForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.getElementById("responseMessage").style.display = "block";
+            
+            // Initiating the call to 8310881822
+            setTimeout(() => {
+                window.location.href = "tel:8310881822";
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>

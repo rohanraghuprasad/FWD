@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile</title>
+    <link rel="stylesheet" href="styles1.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const doctorId = urlParams.get("doctorId");
+
+            const doctorsData = {
+                "anoop-misra": {
+                    name: "Dr. Anoop Misra",
+                    specialization: "Diabetology/Endocrinology",
+                    experience: "40 Years",
+                    fees: "₹2500",
+                    image: "images/doctor1.jpg",
+                    bio: "Dr. Anoop Misra is a leading endocrinologist with expertise in diabetes and metabolic disorders."
+                },
+                "manjinder-sandhu": {
+                    name: "Dr. Manjinder Sandhu",
+                    specialization: "Cardiology",
+                    experience: "35 Years",
+                    fees: "₹2000",
+                    image: "images/doctor2.jpg",
+                    bio: "Dr. Manjinder Sandhu specializes in heart health and cardiac treatments."
+                },
+                "ramesh-gupta": {
+                    name: "Dr. Ramesh Gupta",
+                    specialization: "Orthopedics",
+                    experience: "25 Years",
+                    fees: "₹1800",
+                    image: "images/doctor3.jpg",
+                    bio: "Dr. Ramesh Gupta is an expert in joint and bone-related treatments."
+                },
+                "priya-sharma": {
+                    name: "Dr. Priya Sharma",
+                    specialization: "Neurology",
+                    experience: "30 Years",
+                    fees: "₹2200",
+                    image: "images/doctor4.jpg",
+                    bio: "Dr. Priya Sharma specializes in neurological disorders and treatments."
+                },
+                "rajesh-verma": {
+                    name: "Dr. Rajesh Verma",
+                    specialization: "Gastroenterology",
+                    experience: "20 Years",
+                    fees: "₹2000",
+                    image: "images/doctor5.jpg",
+                    bio: "Dr. Rajesh Verma is a gastroenterologist with experience in digestive system diseases."
+                },
+                "sunita-kapoor": {
+                    name: "Dr. Sunita Kapoor",
+                    specialization: "Gynecology",
+                    experience: "22 Years",
+                    fees: "₹1800",
+                    image: "images/doctor6.jpg",
+                    bio: "Dr. Sunita Kapoor specializes in women's health and maternity care."
+                }
+            };
+
+            const doctor = doctorsData[doctorId] || {};
+            document.getElementById("doctorImage").src = doctor.image || "images/default-doctor.jpg";
+            document.getElementById("doctorImage").alt = doctor.name || "Doctor Image";
+            document.getElementById("doctorName").innerText = doctor.name || "Unknown Doctor";
+            document.getElementById("doctorSpecialization").innerText = doctor.specialization || "Specialization Not Available";
+            document.getElementById("doctorExperience").innerText = doctor.experience || "Experience Not Available";
+            document.getElementById("doctorFees").innerText = doctor.fees || "Fees Not Available";
+            document.getElementById("doctorBio").innerText = doctor.bio || "Biography Not Available";
+        });
+    </script>
+</head>
+<body>
+
+    <div class="profile-container">
+        <h1>DOCTOR PROFILE</h1>
+        <img id="doctorImage" src="images/default-doctor.jpg" alt="Doctor">
+        <h2 id="doctorName"></h2>
+        <p><strong>Specialization:</strong> <span id="doctorSpecialization"></span></p>
+        <p><strong>Experience:</strong> <span id="doctorExperience"></span></p>
+        <p><strong>Fees:</strong> <span id="doctorFees"></span></p>
+        <p id="doctorBio"></p>
+        <button onclick="history.back()">Go Back</button>
+    </div>
+
+</body>
+</html>

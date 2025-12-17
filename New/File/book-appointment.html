@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment</title>
+    <link rel="stylesheet" href="styles1.css">
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .time-slot-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .time-slot.available:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .time-slot.selected {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+
+        .time-slot.disabled {
+            background-color: #e0e0e0;
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Link styling for View Appointments */
+        .view-appointments-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .view-appointments-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBAJPsFJ-nChUw1e23UC8sO299Gw2inqgM",
+            authDomain: "urproject3-82514.firebaseapp.com",
+            projectId: "urproject3-82514",
+            storageBucket: "urproject3-82514.firebasestorage.app",
+            messagingSenderId: "120878746844",
+            appId: "1:120878746844:web:03e7e50208e9cfe093f819",
+            measurementId: "G-EJFK3J5MHB"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth();
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const doctorId = urlParams.get("doctorId");
+
+            let currentUser = null;
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    currentUser = user;
+                } else {
+                    alert("Please log in to book an appointment.");
+                    window.location.href = "login.html";
+                }
+            });
+
+            const generateTimeSlots = (startHour, endHour) => {
+    let slots = [];
+    for (let hour = startHour; hour <= endHour; hour++) {
+        slots.push(
+            `${String(hour).padStart(2, '0')}:00`, 
+            `${String(hour).padStart(2, '0')}:30`
+        );
+    }
+    return slots;
+};
+
+// Generate time slots for 24 hours (00:00 to 23:30)
+const timeSlots = generateTimeSlots(0, 23);
+
+console.log(timeSlots);
+
+
+            const timeSlotContainer = document.getElementById("timeSlots");
+            const today = new Date().toISOString().split("T")[0];
+
+            document.getElementById("appointmentDate").setAttribute("min", today);
+            document.getElementById("appointmentDate").addEventListener("change", loadAvailableSlots);
+
+            async function loadAvailableSlots() {
+                timeSlotContainer.innerHTML = "Loading...";
+                const selectedDate = document.getElementById("appointmentDate").value;
+                const q = query(collection(db, "appointments"), where("doctorId", "==", doctorId), where("date", "==", selectedDate));
+                const bookedSlots = new Set();
+
+                const snapshot = await getDocs(q);
+                snapshot.forEach((doc) => bookedSlots.add(doc.data().time));
+
+                timeSlotContainer.innerHTML = "";
+                timeSlots.forEach(time => {
+                    const slot = document.createElement("div");
+                    slot.innerText = time;
+                    slot.classList.add("time-slot");
+
+                    if (bookedSlots.has(time)) {
+                        slot.classList.add("disabled");
+                    } else {
+                        slot.classList.add("available");
+                        slot.addEventListener("click", () => selectTimeSlot(slot));
+                    }
+
+                    timeSlotContainer.appendChild(slot);
+                });
+            }
+
+            function selectTimeSlot(slot) {
+                document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
+                slot.classList.add("selected");
+            }
+
+            document.getElementById("appointmentForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                if (!currentUser) {
+                    alert("You must be logged in to book an appointment.");
+                    return;
+                }
+
+                const selectedSlot = document.querySelector(".time-slot.selected");
+                if (!selectedSlot) {
+                    alert("Please select a time slot.");
+                    return;
+                }
+
+                const date = document.getElementById("appointmentDate").value;
+                const time = selectedSlot.innerText;
+
+                try {
+                    await addDoc(collection(db, "appointments"), {
+                        doctorId: doctorId,
+                        patientEmail: currentUser.email,
+                        patientId: currentUser.uid,
+                        date: date,
+                        time: time,
+                        status: "Confirmed",
+                        timestamp: new Date()
+                    });
+
+                    alert("✅ Appointment booked successfully!");
+                    window.location.href = "user-dashboard.html";
+                } catch (error) {
+                    console.error("Error booking appointment:", error);
+                    alert("❌ Error booking appointment. Please try again.");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Book an Appointment</h1>
+        <form id="appointmentForm">
+            <label for="appointmentDate">Select Date:</label>
+            <input type="date" id="appointmentDate" required>
+
+            <label>Select Time Slot:</label>
+            <div class="time-slot-container" id="timeSlots"></div>
+
+            <button type="submit">Confirm Appointment</button>
+        </form>
+
+        <!-- Link to the View & Print Appointments page -->
+        <a href="view-print-appointments.html" class="view-appointments-link">View Appointments</a>
+    </div>
+
+</body>
+</html>

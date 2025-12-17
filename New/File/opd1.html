@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPD Registration | Global Care Hospital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            background: #0066cc;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 0 0 10px 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #0066cc;
+        }
+        form {
+            display: grid;
+            gap: 10px;
+        }
+        input, select, button {
+            padding: 12px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        button:hover {
+            background: #004d99;
+            transform: scale(1.03);
+        }
+        .dashboard {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #f9f9f9;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #0066cc;
+            color: white;
+        }
+        tbody tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Global Care Hospital - OPD Registration</h1>
+    </header>
+
+    <div class="container">
+        <h2>Register New Patient</h2>
+        <form id="opd-form">
+            <label>Patient Name:</label>
+            <input type="text" id="patientName" required placeholder="Enter patient name" />
+
+            <label>Age:</label>
+            <input type="number" id="age" required min="1" placeholder="Enter patient's age" />
+
+            <label>Gender:</label>
+            <select id="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label>Contact:</label>
+            <input type="text" id="contact" required pattern="^[0-9]{10}$" placeholder="Enter 10-digit phone number" />
+
+            <label>Weight (kg):</label>
+            <input type="number" id="weight" required min="1" placeholder="Enter weight in kg" />
+
+            <label>Height (cm):</label>
+            <input type="number" id="height" required min="1" placeholder="Enter height in cm" />
+
+            <label>Department:</label>
+            <select id="department">
+                <option value="Cardiology">Cardiology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="General Medicine">General Medicine</option>
+            </select>
+
+            <label>Issue:</label>
+            <select id="issue">
+                <option value="Heart Problems">Heart Problems</option>
+                <option value="Bone & Joint Issues">Bone & Joint Issues</option>
+                <option value="Brain & Nervous System Disorders">Brain & Nervous System Disorders</option>
+                <option value="Child Health">Child Health</option>
+                <option value="Skin Conditions">Skin Conditions</option>
+                <option value="General Health Issues">General Health Issues</option>
+            </select>
+
+            <button type="submit">Register Patient</button>
+        </form>
+    </div>
+
+    <!-- Patient Dashboard -->
+    <div class="container dashboard">
+        <h2>Patient Dashboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Contact</th>
+                    <th>Weight (kg)</th>
+                    <th>Height (cm)</th>
+                    <th>Department</th>
+                    <th>Issue</th>
+                </tr>
+            </thead>
+            <tbody id="patient-table-body"></tbody>
+        </table>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="print-opd.html" class="custom-btn">View and Print OPD Records</a>
+    </div>
+    
+    
+        <style>
+        .custom-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient blue */
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+        }
+        
+        .custom-btn:hover {
+            background: linear-gradient(135deg, #0056b3, #003d80); /* Darker blue */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+        </style>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBAJPsFJ-nChUw1e23UC8sO299Gw2inqgM",
+            authDomain: "urproject3-82514.firebaseapp.com",
+            projectId: "urproject3-82514",
+            storageBucket: "urproject3-82514.appspot.com",
+            messagingSenderId: "120878746844",
+            appId: "1:120878746844:web:03e7e50208e9cfe093f819",
+            measurementId: "G-EJFK3J5MHB"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("opd-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const patientData = {
+                patientName: document.getElementById("patientName").value,
+                age: document.getElementById("age").value,
+                gender: document.getElementById("gender").value,
+                contact: document.getElementById("contact").value,
+                weight: document.getElementById("weight").value,
+                height: document.getElementById("height").value,
+                department: document.getElementById("department").value,
+                issue: document.getElementById("issue").value
+            };
+
+            await addDoc(collection(db, "patients"), patientData);
+            alert("Patient registered successfully!");
+            document.getElementById("opd-form").reset();
+        });
+
+        const patientTableBody = document.getElementById("patient-table-body");
+
+        onSnapshot(collection(db, "patients"), (snapshot) => {
+            patientTableBody.innerHTML = "";
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                patientTableBody.innerHTML += `
+                    <tr>
+                        <td>${data.patientName}</td>
+                        <td>${data.age}</td>
+                        <td>${data.gender}</td>
+                        <td>${data.contact}</td>
+                        <td>${data.weight}</td>
+                        <td>${data.height}</td>
+                        <td>${data.department}</td>
+                        <td>${data.issue}</td>
+                    </tr>
+                `;
+            });
+        });
+    </script>
+
+</body>
+</html>

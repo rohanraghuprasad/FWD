@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Care Hospital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header {
+            background: #004d99;
+            padding: 15px 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 5%;
+        }
+        header img {
+            width: 80px;
+            border-radius: 50%;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: url('images/hospital-banner.jpg') no-repeat center center/cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero .content {
+            position: relative;
+            z-index: 1;
+        }
+        .btn {
+            background: #ff4081;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #e60073;
+        }
+        .section {
+            padding: 50px 0;
+            background: #fff;
+        }
+        .grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #004d99;
+            color: white;
+            padding: 20px;
+            width: 22%;
+            text-align: center;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .card i {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .contact {
+            background: #333;
+            color: white;
+            padding: 50px 0;
+        }
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 80%;
+            }
+        }
+
+          /* Chatbot Styles */
+          .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+        }
+        .chatbot-header {
+            background: #004d99;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+        }
+        .chatbot-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f8f8f8;
+        }
+        .chatbot-input {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+        .chatbot-input button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff4081;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .video-banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+        }
+
+        .overlay h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .overlay p {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .overlay h1 {
+                font-size: 2rem;
+            }
+
+            .overlay p {
+                font-size: 1rem;
+            }
+        }
+
+        .specialties-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+}
+
+.specialties-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.specialty {
+    background: #007bff; /* Blue color */
+    color: white; /* White text for better contrast */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.specialty:hover {
+    transform: translateY(-5px);
+    background: #0056b3; /* Darker blue on hover */
+}
+
+.specialty h3 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.specialty p {
+    font-size: 1em;
+    color: #e0e0e0; /* Slightly lighter text for contrast */
+}
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 10%;
+    background-color: #f9f9f9;
+}
+
+.about-content {
+    flex: 1;
+    max-width: 50%;
+    text-align: left;
+}
+
+.about-content h2 {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #2c3e50;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #555;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    background-color: #900C3F;
+    color: white;
+    font-size: 1.1em;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+}
+
+.read-more:hover {
+    background-color: #700A2F;
+}
+
+.about-image {
+    flex: 1;
+    max-width: 50%;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.specialties-section {
+    text-align: center;
+    padding: 60px 10%;
+    background: linear-gradient(135deg, #6a0572, #d64c7f);
+    color: white;
+}
+
+.specialties-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+.specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.specialty-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.specialty-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.specialty-card h3 {
+    font-size: 1.3em;
+    color: #333;
+    font-family: "Roboto", sans-serif;
+}
+
+.specialty-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.specialties-section {
+    text-align: center;
+    padding: 50px 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.specialty {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.specialty i {
+    font-size: 40px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.specialty h3 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.specialty p {
+    font-size: 16px;
+    color: #555;
+}
+
+.specialty:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('your-background-image.jpg') center/cover no-repeat;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.hero .container {
+    max-width: 800px;
+}
+
+.hero .content h2 {
+    font-size: 42px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #f8f9fa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero .content h2 span {
+    color: #00d9ff; /* Highlighted color */
+}
+
+.hero .content p {
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    color: #e0e0e0;
+    margin-top: 10px;
+}
+
+.hero .btn {
+    display: inline-block;
+    background: #00d9ff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+    margin-top: 20px;
+}
+
+.hero .btn:hover {
+    background: #007bff;
+    transform: scale(1.05);
+}
+
+
+    
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <img src="C:\Users\aksha\Downloads\DALL·E 2025-02-27 00.31.21 - A beautifully designed, ultra-modern hospital building named 'Global Care Hospital'. The hospital features a sleek glass and steel facade, a grand ent.webp" alt="Hospital Logo">
+        <h1>Global Care Hospital</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about-content">About</a></li>
+                <li><a href="#specialties">Specialties</a></li>
+                <li><a href="doctors-list.html">Doctors</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="opd1.html">OPD Registration</a></li>
+                <a href="ambulance-booking.html" style="display: inline-block; padding: 12px 20px; background: #ff4d6d; color: white; font-size: 18px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                    🚑 Book an Ambulance
+                </a>
+                
+            </ul>
+        </nav>
+    </header>
+    
+    <body>
+
+        <section class="video-banner">
+            <video autoplay muted loop playsinline class="background-video">
+                <source src="https://msrmh.com/wp-content/uploads/2023/10/msrmh-banner-slider-video-compressed-final-1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay">
+                <h1>Welcome to Our Hospital</h1>
+                <p>Providing world-class healthcare services</p>
+            </div>
+        </section>
+    
+        <style>
+            body { font-family: Arial, sans-serif; }
+            .chatbot-icon { 
+                position: fixed; 
+                bottom: 20px; 
+                right: 20px; 
+                cursor: pointer; 
+                background: #007bff; 
+                color: white; 
+                padding: 10px; 
+                border-radius: 50%; 
+                font-size: 20px; 
+            }
+            .chatbot-container { 
+                display: none; 
+                position: fixed; 
+                bottom: 80px; 
+                right: 20px; 
+                width: 300px; 
+                background: white; 
+                border-radius: 10px; 
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+            }
+            .chatbot-header { 
+                background: #007bff; 
+                color: white; 
+                padding: 10px; 
+                text-align: center; 
+                border-radius: 10px 10px 0 0; 
+                font-weight: bold;
+            }
+            .chatbot-messages { 
+                height: 300px; 
+                overflow-y: auto; 
+                padding: 10px; 
+            }
+            .chatbot-input { 
+                display: flex; 
+                padding: 10px; 
+                border-top: 1px solid #ddd; 
+            }
+            .chatbot-input input { 
+                flex: 1; 
+                padding: 8px; 
+                border: 1px solid #ddd; 
+                border-radius: 5px; 
+            }
+            .chatbot-input button { 
+                padding: 8px 12px; 
+                background: #007bff; 
+                color: white; 
+                border: none; 
+                border-radius: 5px; 
+                margin-left: 5px; 
+                cursor: pointer; 
+            }
+            .chatbot-messages p { 
+                margin: 5px 0; 
+            }
+            .chatbot-messages .patient-message strong { 
+                font-weight: bold; 
+            }
+            .chatbot-messages .doctor-message strong { 
+                font-weight: bold; 
+            }
+        </style>
+        
+        
+<body>
+
+    <!-- Chatbot Icon -->
+    <div class="chatbot-icon" onclick="toggleChatbot()">
+        💬
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-container" id="chatbot">
+        <div class="chatbot-header">Global Care Hospital Chat</div>
+        <div class="chatbot-messages" id="chat-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="user-input" placeholder="Ask something...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Predefined doctor responses
+        let messages = {
+            "Hi": "Doctor: How can i help you?.",
+            "OPD timing": "Doctor: Our OPD is open from 9 AM to 7 PM daily.",
+            "Book appointment": "Doctor: You can book an appointment through our website or by calling our helpline.",
+            "Doctor available": "Doctor: Yes, we have specialists available. Which department do you need?",
+            "Emergency contact": "Doctor: In case of emergency, call our 24/7 helpline at +91 80 1234 5678.",
+            "OPD fees": "Doctor: The OPD consultation fee starts at ₹500, depending on the specialty.",
+            "Patient dashboard": "Doctor: You can access your medical history and appointments via our patient dashboard.",
+            "Blood test": "Doctor: Yes, we provide all lab tests. You can book one online or visit the hospital.",
+            "Surgery cost": "Doctor: Surgery costs vary based on the procedure. Please consult a specialist for details.",
+            "Insurance accepted": "Doctor: Yes, we accept major health insurance plans. Check at the billing desk.",
+            "Doctor list": "Doctor: You can view our doctor directory on the website.",
+            "MRI scan": "Doctor: MRI scans are available from 8 AM to 8 PM. Please book in advance.",
+            "Bed availability": "Doctor: You can check real-time bed availability on our website or call reception.",
+            "OPD slip": "Doctor: Your OPD slip can be downloaded from the patient dashboard after registration.",
+            "Vaccination": "Doctor: Yes, we provide all major vaccinations. Walk-in or book an appointment online.",
+            "Ambulance": "Doctor: Our ambulance service is available 24/7. Call +91 80 5678 9101.",
+            "Health checkup": "Doctor: We offer comprehensive health checkup packages. Visit our website for details.",
+            "Online consultation": "Doctor: Yes, teleconsultations are available. Book through the online portal.",
+            "Lab report": "Doctor: Your lab reports will be available in your patient dashboard within 24 hours.",
+            "Discharge process": "Doctor: After final billing and doctor approval, discharge is processed within 2 hours.",
+            "Visiting hours": "Doctor: General ward: 10 AM - 8 PM, ICU: Limited hours with permission.",
+            "Thank you": "Doctor: You're welcome! Feel free to ask anything else."
+        };
+
+        function toggleChatbot() {
+            let chatbot = document.getElementById("chatbot");
+            chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
+        }
+
+        function sendMessage() {
+            let inputField = document.getElementById("user-input");
+            let message = inputField.value.trim();
+            if (message === "") return;
+
+            let chatMessages = document.getElementById("chat-messages");
+
+            // Add patient message
+            chatMessages.innerHTML += `<p><strong>Patient:</strong> ${message}</p>`;
+            inputField.value = "";
+
+            setTimeout(() => {
+                // Get doctor response
+                let response = messages[message] || "Doctor: Sorry, I didn't understand. Can you rephrase?";
+                chatMessages.innerHTML += `<p>${response}</p>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+    </script>
+
+</body>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="content">
+                <h2>Advanced Healthcare for a <span>Healthier Tomorrow</span></h2>
+                <p>Providing cutting-edge medical treatments with compassion and care.</p>
+                <a href="doctors-list.html" class="btn">Book An Appointment</a>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>About Our Hospital</h2>
+            <p>Our hospital is a trusted center for advanced medical care, providing world-class treatment with a patient-first approach. 
+            We specialize in cutting-edge technology, highly skilled doctors, and compassionate healthcare services. Our goal is to create 
+            a healing environment that fosters well-being, trust, and excellence in medical care.</p>
+            <p>We are committed to offering quality healthcare at an affordable cost, ensuring that every patient receives the best 
+            possible treatment with empathy and professionalism.</p>
+            <button class="read-more">Read More</button>
+        </div>
+        <div class="about-image">
+            <img src="C:\Users\aksha\Downloads\DALL·E 2025-02-27 00.31.21 - A beautifully designed, ultra-modern hospital building named 'Global Care Hospital'. The hospital features a sleek glass and steel facade, a grand ent.webp" alt="Hospital Building" width="35%">" 
+        </div>
+    </section>
+
+    <!-- Specialties Section -->
+    <section id="specialties" class="specialties-section">
+        <h2 class="section-title">Our Specialties</h2>
+        <div class="specialties-grid">
+            <div class="specialty">
+                <i class="fas fa-brain"></i>
+                <h3>Neurology</h3>
+                <p>Advanced care for brain, spinal cord, and nervous system disorders.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Cardiology</h3>
+                <p>Comprehensive treatment for heart diseases and conditions.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-ribbon"></i>
+                <h3>Oncology</h3>
+                <p>Expert cancer diagnosis, treatment, and therapies.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-bone"></i>
+                <h3>Orthopedics</h3>
+                <p>Specialized bone, joint, and spine care.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-baby"></i>
+                <h3>Pediatrics</h3>
+                <p>Quality healthcare for infants, children, and adolescents.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-allergies"></i>
+                <h3>Dermatology</h3>
+                <p>Expert care for skin, hair, and nail conditions.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-stomach"></i>
+                <h3>Gastroenterology</h3>
+                <p>Treatment for digestive and liver-related disorders.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-lungs"></i>
+                <h3>Pulmonology</h3>
+                <p>Comprehensive lung and respiratory care.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-kidneys"></i>
+                <h3>Nephrology</h3>
+                <p>Kidney disease management and dialysis treatment.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Endocrinology</h3>
+                <p>Specialized care for hormone and metabolic disorders.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-brain"></i>
+                <h3>Psychiatry</h3>
+                <p>Mental health care, therapy, and counseling.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-venus"></i>
+                <h3>Gynecology & Obstetrics</h3>
+                <p>Women's health, maternity, and fertility treatments.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-male"></i>
+                <h3>Urology</h3>
+                <p>Treatment for urinary tract and male reproductive disorders.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-user-md"></i>
+                <h3>Plastic Surgery</h3>
+                <p>Cosmetic and reconstructive surgery procedures.</p>
+            </div>
+            <div class="specialty">
+                <i class="fas fa-ambulance"></i>
+                <h3>Emergency Care</h3>
+                <p>24/7 emergency and trauma medical support.</p>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>We are available 24/7 to assist you. Reach out to us for any medical inquiries.</p>
+            <p><i class="fas fa-phone"></i> +91 80 1234 5678   </p>
+            <p><i class="fas fa-envelope"></i> info@globalcarehospital.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> 123, MG Road, Bangalore, India</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Global Care Hospital. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

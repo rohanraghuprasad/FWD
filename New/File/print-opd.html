@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPD Records - Global Care Hospital</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="module">
+        
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBAJPsFJ-nChUw1e23UC8sO299Gw2inqgM",
+            authDomain: "urproject3-82514.firebaseapp.com",
+            projectId: "urproject3-82514",
+            storageBucket: "urproject3-82514.firebasestorage.app",
+            messagingSenderId: "120878746844",
+            appId: "1:120878746844:web:03e7e50208e9cfe093f819",
+            measurementId: "G-EJFK3J5MHB"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadPatients() {
+            const tableBody = document.getElementById("patientTableBody");
+            tableBody.innerHTML = "";
+            const querySnapshot = await getDocs(collection(db, "patients")); // Fetch from "patients"
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                tableBody.innerHTML += `
+                    <tr>
+                        <td><input type="checkbox" class="patient-checkbox" 
+                            data-name="${data.patientName}" 
+                            data-age="${data.age}" 
+                            data-gender="${data.gender}" 
+                            data-weight="${data.weight}" 
+                            data-height="${data.height}" 
+                            data-department="${data.department}" 
+                            data-issue="${data.issue}"></td>
+                        <td>${data.patientName}</td>
+                        <td>${data.age}</td>
+                        <td>${data.gender}</td>
+                        <td>${data.weight} kg</td>
+                        <td>${data.height} cm</td>
+                        <td>${data.department}</td>
+                        <td>${data.issue}</td>
+                    </tr>
+                `;
+            });
+
+            document.querySelectorAll('.patient-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', updatePrintButtonVisibility);
+            });
+        }
+
+        function updatePrintButtonVisibility() {
+            const selectedCheckboxes = document.querySelectorAll('.patient-checkbox:checked');
+            document.getElementById('print-selected-btn').style.display = selectedCheckboxes.length > 0 ? 'inline-block' : 'none';
+        }
+
+        window.printSelectedPatients = function () {
+            const selectedCheckboxes = document.querySelectorAll('.patient-checkbox:checked');
+            if (selectedCheckboxes.length === 0) {
+                alert("Please select at least one patient.");
+                return;
+            }
+
+            selectedCheckboxes.forEach((checkbox, index) => {
+                const name = checkbox.dataset.name;
+                const age = checkbox.dataset.age;
+                const gender = checkbox.dataset.gender;
+                const weight = checkbox.dataset.weight;
+                const height = checkbox.dataset.height;
+                const department = checkbox.dataset.department;
+                const issue = checkbox.dataset.issue;
+                const visitDate = new Date().toISOString().split('T')[0];
+
+                generateStyledPDF(index + 1, name, visitDate, gender, age, weight, height, department, issue);
+            });
+        };
+
+        function generateStyledPDF(index, name, visitDate, gender, age, weight, height, department, issue) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Set Background Color
+            doc.setFillColor(245, 245, 245);
+            doc.rect(0, 0, 210, 297, 'F');
+
+            // Gradient Header
+            doc.setFillColor(30, 60, 110);
+            doc.rect(0, 0, 210, 30, 'F');
+
+            // Hospital Title
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(24);
+            doc.setTextColor(255, 255, 255);
+            doc.text(' Global Care Hospital', 50, 20);
+
+            // Subheading
+            doc.setFontSize(13);
+            doc.text('OPD Patient Token', 85, 28);
+
+            // Patient Info
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Patient Name: ${name}`, 20, 50);
+            doc.text(`Visit Date: ${visitDate}`, 20, 60);
+            doc.text(`Gender: ${gender}`, 20, 70);
+            doc.text(`Age: ${age} years`, 20, 80);
+            doc.text(`Weight: ${weight} kg`, 20, 90);
+            doc.text(`Height: ${height} cm`, 20, 100);
+            doc.text(`Department: ${department}`, 20, 110);
+            doc.text(`Issue: ${issue}`, 20, 120);
+
+            // Doctor's Notes
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(30, 30, 100);
+            doc.text(`Doctor's Notes:`, 20, 140);
+            doc.setDrawColor(50, 50, 50);
+            doc.rect(20, 145, 170, 40);
+
+            // Signature Field
+            doc.text(`Doctor's Signature:`, 20, 200);
+            doc.line(60, 205, 140, 205);
+
+            // Footer Message
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'italic');
+            doc.setTextColor(30, 30, 100);
+            doc.text('Thank you for choosing Global Care Hospital....', 50, 220);
+
+            doc.save(`${name}_OPD_Token.pdf`);
+        }
+
+        document.addEventListener("DOMContentLoaded", loadPatients);
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f4f8;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #1e3c72;
+            color: white;
+            font-size: 16px;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .print-btn {
+            background: linear-gradient(90deg, #ff5f6d, #ffc371);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .print-btn:hover {
+            background: linear-gradient(90deg, #e53935, #ffb74d);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Global Care Hospital - OPD Records</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Patient Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Weight</th>
+                    <th>Height</th>
+                    <th>Department</th>
+                    <th>Issue</th>
+                </tr>
+            </thead>
+            <tbody id="patientTableBody"></tbody>
+        </table>
+        <button id="print-selected-btn" class="print-btn" onclick="printSelectedPatients()">Print Selected</button>
+    </div>
+</body>
+</html>

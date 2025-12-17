@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Global Care Hospital</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+    <style>
+        /* 🌟 Modern Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #004d99, #008cba);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+        }
+        .register-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 95%;
+            background: #ff4081;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e6005c;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+        }
+        #message {
+            margin-top: 10px;
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Register</h2>
+        <input type="text" id="name" placeholder="Full Name" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="password" id="password" placeholder="Password (Min 6 chars)" required><br>
+        <button onclick="register()">Register</button>
+        <p id="message"></p>
+        <a href="login.html">Already have an account? Login</a>
+    </div>
+
+    <script>
+        // ✅ Wait for Firebase to be Ready
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!firebase.apps.length) {
+                console.error("Firebase is not initialized!");
+            }
+        });
+
+        // ✅ Register Function
+        function register() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let messageElement = document.getElementById("message");
+
+            // Basic Validation
+            if (!email.includes("@")) {
+                messageElement.innerText = "Invalid email format!";
+                return;
+            }
+            if (password.length < 6) {
+                messageElement.innerText = "Password must be at least 6 characters!";
+                return;
+            }
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    let user = userCredential.user;
+                    return firebase.firestore().collection("users").doc(user.uid).set({
+                        name: name,
+                        email: email,
+                        uid: user.uid
+                    });
+                })
+                .then(() => {
+                    messageElement.innerText = "Registration Successful!";
+                    setTimeout(() => {
+                        window.location.href = "login.html"; // Redirect to login page
+                    }, 2000);
+                })
+                .catch((error) => {
+                    messageElement.innerText = error.message;
+                });
+        }
+    </script>
+
+</body>
+</html>
